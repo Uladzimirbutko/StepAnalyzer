@@ -1,0 +1,40 @@
+﻿<Window x:Class="StepAnalyzer.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:StepAnalyzer"
+        xmlns:col="clr-namespace:System.Collections;assembly=mscorlib"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="680" Width="1100" ResizeMode="NoResize">
+    <Grid x:Name="Grid">
+        <DataGrid x:Name="UsersGrid" AutoGenerateColumns="False" Width="402" HorizontalAlignment="Left" IsReadOnly="True" SelectionMode="Single" >
+            <DataGrid.Columns>
+                <DataGridTemplateColumn Header="Фио" Width="130" ClipboardContentBinding="{x:Null}">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="{Binding Path=Name}" HorizontalAlignment="Left" BorderBrush="Transparent" Background="Transparent" Name="bt_ShowDetails" Click="bt_Details_Click"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn x:Name="TextColumnB" Header="Среднее" Width="60" Binding="{Binding Path=AverageSteps}"  ></DataGridTextColumn>
+                <DataGridTextColumn Header="Макс" Width="65" Binding="{Binding Path=MaxSteps}"  ></DataGridTextColumn>
+                <DataGridTextColumn Header="Мин" Width="65" Binding="{Binding Path=MinSteps}"  ></DataGridTextColumn>
+                <DataGridTemplateColumn Header="" Width="57" ClipboardContentBinding="{x:Null}">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="Сохранить" FontSize="10" HorizontalAlignment="Left" BorderBrush="Transparent" Background="Aqua" Name="bt_ShowDetails" Click="bt_Save_Click">
+                            </Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        
+        <Grid x:Name="CoordinateGrid">
+            <TextBlock HorizontalAlignment="Center" Margin="405,72,0,0"  Text="Привет!" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="36" FontFamily="Calibri" FontWeight="Bold" FontStyle="Normal"/>
+            <TextBlock HorizontalAlignment="Left" Margin="521,144,0,0" Text="Здесь будет отображаться подробная статистика о пройденных шагах за месяц. Нажми на Пользователя что бы посмотреть подробнее." TextWrapping="Wrap" VerticalAlignment="Top" FontSize="22" Width="463" FontFamily="Calibri"/>
+        </Grid>
+
+    </Grid>
+</Window>
