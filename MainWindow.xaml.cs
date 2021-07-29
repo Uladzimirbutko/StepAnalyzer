@@ -32,17 +32,23 @@ namespace StepAnalyzer
         }
 
         //Get Table with Users
-        private void UsersTable()
+        private bool UsersTable()
         {
-            var getAllUsersFromFiles =  _jsonDeserialize.JsonReader();
-            UserDictionary = _jsonDeserialize.UsersDictionary(getAllUsersFromFiles);
-            var getAllUsersNames = _userService.GetAllNames(UserDictionary);
-            UsersList = new List<User>();
-            foreach (var name in getAllUsersNames)
+            var getAllUsersFromFiles = _jsonDeserialize.JsonReader();
+            if (getAllUsersFromFiles != null)
             {
-                UsersList.Add(_userService.GetUserByName(UserDictionary, name));
+                UserDictionary = _jsonDeserialize.UsersDictionary(getAllUsersFromFiles);
+                var getAllUsersNames = _userService.GetAllNames(UserDictionary);
+                UsersList = new List<User>();
+                foreach (var name in getAllUsersNames)
+                {
+                    UsersList.Add(_userService.GetUserByName(UserDictionary, name));
+                }
+                UsersGrid.ItemsSource = UsersList;
+                return true;
             }
-            UsersGrid.ItemsSource = UsersList;
+            MessageBox.Show("Файлы не найдены! Добавьте папку с файлами \"TestData\" в путь StepAnalyzer\\bin\\Debug\\net5.0-windows ");
+            return false;
         }
         //Get details information from user
         private void bt_Details_Click(object sender, RoutedEventArgs e)

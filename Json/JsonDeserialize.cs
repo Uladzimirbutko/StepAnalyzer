@@ -13,25 +13,33 @@ namespace StepAnalyzer.Json
         public static List<UsersModelFromJson> UserModelForJson { get; set; }
         public List<UsersModelFromJson> JsonReader()
         {
-            var result = UserModelForJson = new List<UsersModelFromJson>();
-            var pathDirectory = Environment.CurrentDirectory + @"\TestData\";
-            var files = Directory.GetFiles(pathDirectory, "*.json");
-            byte count = 1;
-            foreach (var file in files)
+            try
             {
-                var readJson = File.ReadAllText(file);
-                var users = JsonConvert.DeserializeObject<List<UsersModelFromJson>>(readJson);
+                var result = UserModelForJson = new List<UsersModelFromJson>();
+                var pathDirectory = Environment.CurrentDirectory + @"\TestData\";
+                var files = Directory.GetFiles(pathDirectory, "*.json");
+                byte count = 1;
+                foreach (var file in files)
+                {
+                    var readJson = File.ReadAllText(file);
+                    var users = JsonConvert.DeserializeObject<List<UsersModelFromJson>>(readJson);
                 
 
-                foreach (var usersModelForJson in users)
-                {
-                    usersModelForJson.Day = $"Day {count}";
-                    result.Add(usersModelForJson);
-                }
+                    foreach (var usersModelForJson in users)
+                    {
+                        usersModelForJson.Day = $"Day {count}";
+                        result.Add(usersModelForJson);
+                    }
 
-                count++;
+                    count++;
+                }
+                return result;
             }
-            return result;
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return null;
+            }
         }
 
         public Dictionary<string, List<int>> UsersDictionary(List<UsersModelFromJson> users)
